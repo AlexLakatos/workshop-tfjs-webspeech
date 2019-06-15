@@ -396,25 +396,6 @@ function speak(message) {
   speechSynthesis.speak(utterance);
 }
 
-function ask() {
-  var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-  var recognition = new SpeechRecognition();
-
-  recognition.lang = "en-US";
-  recognition.interimResults = false;
-  recognition.start();
-
-  recognition.addEventListener('result', (e) => {
-    let last = e.results.length - 1;
-    let text = e.results[last][0].transcript;
-    console.log(text);
-
-    sendMessage(text);
-
-    recognition.stop();
-  });
-}
-
 let messageId = 0;
 
 function appendMessage(message, sender, appendAfter) {
@@ -458,8 +439,6 @@ function setupListeners() {
   const form = document.getElementById('textentry');
   const textbox = document.getElementById('textbox');
   const speech = document.getElementById('speech');
-
-  speech.addEventListener('click', ask, false);
 
   form.addEventListener('submit', event => {
     event.preventDefault();
