@@ -97,7 +97,6 @@ async function getClassificationMessage(softmaxArr, inputText) {
         if (location.trim() != "") {
           const weatherMessage = await getWeather(location);;
           response = '⛅ ' + weatherMessage;
-          speak(weatherMessage);
         } else {
           response = '⛅';
         }
@@ -384,17 +383,6 @@ async function getWeather(location) {
   }
 }
 
-
-function speak(message) {
-  let utterance = new SpeechSynthesisUtterance();
-
-  utterance.text = message;
-  utterance.rate = 5;
-  utterance.pitch = 2;
-  utterance.lang = "en-GB";
-
-  speechSynthesis.speak(utterance);
-}
 
 let messageId = 0;
 
