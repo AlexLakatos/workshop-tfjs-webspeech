@@ -363,7 +363,7 @@ async function tagMessage(inputText, model) {
 
 
 async function getWeatherSearch(location) {
-  const response = await fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/search/?query=${location.trim()}`);
+  const response = await fetch(`https://www.metaweather.com/api/location/search/?query=${location.trim()}`);
 
   const weatherSearch = response.json();
 
@@ -375,7 +375,7 @@ async function getWeather(location) {
   const weatherSearch = await getWeatherSearch(location);
 
   if (weatherSearch.length > 0) {
-    const weatherResponse = await fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${weatherSearch[0].woeid}/`);
+    const weatherResponse = await fetch(`https://www.metaweather.com/api/location/${weatherSearch[0].woeid}/`);
     const weather = await weatherResponse.json()
 
     return `The ${weather.location_type} of ${weather.title} is expecting ${weather.consolidated_weather[0].weather_state_name} today.`
