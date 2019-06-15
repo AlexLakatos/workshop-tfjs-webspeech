@@ -71,3 +71,48 @@ Once the models are trained you can use the following command to run the demo ap
 ```
 yarn workshop-app
 ```
+
+
+## Build the app
+
+### Load the models
+
+```
+git checkout -b load-tensor
+```
+
+### Add intent classification
+
+```
+git checkout -b add-intents
+```
+
+### Add message tagging
+
+```
+git checkout -b add-tagging
+```
+
+### Add the weather api for tagged location
+
+```
+git checkout -b add-weather-api
+```
+
+### Visualize tokenization
+
+```
+git checkout -b display-tokenization
+```
+
+### Add Speech Synthesis
+
+```
+git checkout -b add-speech-synthesis
+```
+
+### Add Speech Recognition
+
+```
+git checkout -b add-speech-recognition
+```
