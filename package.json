@@ -12,6 +12,7 @@
     "prep-data": "npm-run-all raw-to-csv csv-to-tensors raw-to-tagged-tokens tokens-to-embeddings",
     "train-intent": "node training/train_intent.js",
     "train-tagger": "node training/train_tagger.js",
+    "train": "npm-run-all train-intent train-tagger",
     "prep-client": "node copy_models.js",
     "workshop-app": "yarn prep-client && parcel app/index.html --open"
   },

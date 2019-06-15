@@ -58,6 +58,12 @@ Each of these scripts take multiple options, look at `training/train-intent.js` 
 
 These scripts will output model artifacts in the `training/models` folder.
 
+You can run all two of these commands with
+
+```
+yarn train
+```
+
 ## Run the app
 
 Once the models are trained you can use the following command to run the demo app
