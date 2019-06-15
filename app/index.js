@@ -92,9 +92,7 @@ async function getClassificationMessage(softmaxArr, inputText) {
     let response;
     switch (intentLabel) {
       case 'GetWeather':
-        const model = "bidirectional-lstm";
-        var location = await tagMessage(inputText, model);
-        response = '⛅ ' + location.trim();
+        response = '⛅'
         break;
 
       case 'PlayMusic':
@@ -163,98 +161,6 @@ async function loadTaggerModel() {
 function tokenizeSentence(input) {
   return input.split(/\b/).map(t => t.trim()).filter(t => t.length !== 0);
 }
-
-/**
- * Tokenize a sentence and tag the tokens.
- *
- * @param {string} sentence sentence to tag
- * @param {string} model name of model to use
- *
- * @return {Object} dictionary of tokens, model outputs and embeddings
- */
-async function tagTokens(sentence, model = 'bidirectional-lstm') {
-  const [use, tagger, metadata] =
-  await Promise.all([loadUSE(), loadTagger(model), loadMetadata(model)]);
-  const {
-    labels,
-    sequenceLength
-  } = metadata;
-
-
-  let tokenized = tokenizeSentence(sentence);
-  if (tokenized.length > sequenceLength) {
-    console.warn(
-      `Input sentence has more tokens than max allowed tokens ` +
-      `(${sequenceLength}). Extra tokens will be dropped.`);
-  }
-  tokenized = tokenized.slice(0, sequenceLength);
-  const activations = await use.embed(tokenized);
-
-  // get prediction
-  const prediction = tf.tidy(() => {
-    // Make an input tensor of [1, sequence_len, embedding_size];
-    const toPad = sequenceLength - tokenized.length;
-
-    const padTensors = tf.ones([toPad, EMBEDDING_DIM]);
-    const padded = activations.concat(padTensors);
-
-    const batched = padded.expandDims();
-    return tagger.predict(batched);
-  });
-
-
-  // Prediction data
-  let predsArr = (await prediction.array())[0];
-
-  // Add padding 'tokens' to the end of the values that will be displayed
-  // in the UI. These are there for illustration.
-  if (tokenized.length < sequenceLength) {
-    tokenized.push(labels[2]);
-    predsArr = predsArr.slice(0, tokenized.length);
-  }
-
-  // Add an extra activation to illustrate the padding inputs in the UI.
-  // This is added for illustration.
-  const displayActivations =
-    tf.tidy(() => activations.concat(tf.ones([1, EMBEDDING_DIM])));
-  const displayActicationsArr = await displayActivations.array();
-
-  tf.dispose([activations, prediction, displayActivations]);
-
-  return {
-    tokenized: tokenized,
-    tokenScores: predsArr,
-    tokenEmbeddings: displayActicationsArr,
-  };
-}
-
-async function tagMessage(inputText, model) {
-  if (inputText != null && inputText.length > 0) {
-    const result = await tagTokens(inputText, model);
-    const {
-      tokenized,
-      tokenScores,
-      tokenEmbeddings
-    } = result;
-    const metadata = await loadMetadata(model);
-    const {
-      labels
-    } = metadata;
-    const location = tokenScores
-      .map((scores, index) => {
-        const maxIndex = scores.indexOf(Math.max(...scores));
-        if (maxIndex === 1) {
-          return tokenized[index]
-        }
-      })
-      .join('\ ')
-
-    console.log(location);
-
-    return location;
-  }
-}
-
 
 let messageId = 0;
 
