@@ -233,106 +233,6 @@ async function tagTokens(sentence, model = 'bidirectional-lstm') {
   };
 }
 
-/**
- * Render the tokens
- *
- * @param {string[]} tokens the tokens
- * @param {Array.number[]} tokenScores model scores for each token
- * @param {Array.number[]} tokenEmbeddings token embeddings
- * @param {string} model name of model
- */
-async function displayTokenization(tokens, tokenScores, tokenEmbeddings, model) {
-  const resultsDiv = document.createElement('div');
-  resultsDiv.classList = `tagging`;
-  resultsDiv.innerHTML = `<p class="model-type ${model}">${model}</p>`;
-
-  displayTokens(tokens, resultsDiv);
-  displayEmbeddingsPlot(tokenEmbeddings, resultsDiv);
-  displayTags(tokenScores, resultsDiv, model);
-
-  document.getElementById('taggings').prepend(resultsDiv);
-}
-
-/**
- * Render the tokens.
- *
- * @param {string[]} tokens tokens to display
- * @param {HTMLElement} parentEl parent element
- */
-function displayTokens(tokens, parentEl) {
-  const tokensDiv = document.createElement('div');
-  tokensDiv.classList = `tokens`;
-  tokensDiv.innerHTML =
-    tokens.map(token => `<div class="token">${token}</div>`).join('\n');
-  parentEl.appendChild(tokensDiv);
-}
-
-const embeddingCol =
-  d3.scaleSequential(d3.interpolateSpectral).domain([-0.075, 0.075]);
-embeddingCol.clamp(true);
-
-/**
- * Display an illustrative representation of the embeddings values
- * @param {*} embeddings
- * @param {*} parentEl
- */
-function displayEmbeddingsPlot(embeddings, parentEl) {
-  const embeddingDiv = document.createElement('div');
-  embeddingDiv.classList = `embeddings`;
-
-  embeddingDiv.innerHTML =
-    embeddings
-    .map(embedding => {
-      // Note that this slice is arbitraty as the plot is only meant to
-      // be illustrative.
-      const embeddingValDivs = embedding.slice(0, 340).map(val => {
-        return `<div class="embVal" ` +
-          `style="background-color:${embeddingCol(val)} "` +
-          `title="${val}"` +
-          `></div>`;
-      });
-
-      return `<div class="embedding">` +
-        `${embeddingValDivs.join('\n')}</div>`;
-    })
-    .join('\n');
-
-  parentEl.appendChild(embeddingDiv);
-}
-
-/**
- *
- * @param {*} tokenScores
- * @param {*} parentEl
- * @param {*} modelName
- */
-async function displayTags(tokenScores, parentEl, modelName) {
-  const metadata = await loadMetadata(modelName);
-  const {
-    labels
-  } = metadata;
-  let location = "";
-
-  const tagsDiv = document.createElement('div');
-  tagsDiv.classList = `tags`;
-  tagsDiv.innerHTML =
-    tokenScores
-    .map((scores, index) => {
-      const maxIndex = scores.indexOf(Math.max(...scores));
-      const token = labels[maxIndex];
-      const tokenScore = (scores[maxIndex] * 100).toPrecision(3);
-      return `<div class="tag ${token}">` +
-        `&nbsp;&nbsp;${token.replace(/__/g, '')}<sup>` +
-        `${tokenScore}%</sup></div>`;
-    })
-    .join('\n');
-
-  if (location != "") {
-    appendMessage(location, 'bot', messageId - 1);
-  }
-  parentEl.appendChild(tagsDiv);
-}
-
 async function tagMessage(inputText, model) {
   if (inputText != null && inputText.length > 0) {
     const result = await tagTokens(inputText, model);
@@ -354,7 +254,7 @@ async function tagMessage(inputText, model) {
       })
       .join('\ ')
 
-    displayTokenization(tokenized, tokenScores, tokenEmbeddings, model);
+    console.log(location);
 
     return location;
   }
