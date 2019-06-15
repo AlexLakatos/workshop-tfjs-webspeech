@@ -56,56 +56,8 @@ async function loadIntentMetadata() {
   return intentMetadata;
 }
 
-async function classify(sentences) {
-  const [use, intent, metadata] = await Promise.all(
-    [loadUSE(), loadIntentClassifer(DENSE_MODEL_URL), loadIntentMetadata()]);
-
-  const {
-    labels
-  } = metadata;
-  const activations = await use.embed(sentences);
-
-  const prediction = intent.predict(activations);
-
-  const predsArr = await prediction.array();
-  const preview = [predsArr[0].slice()];
-  preview.unshift(labels);
-  console.table(preview);
-
-  tf.dispose([activations, prediction]);
-
-  return predsArr[0];
-}
-
 const THRESHOLD = 0.90;
-async function getClassificationMessage(softmaxArr, inputText) {
-  const {
-    labels
-  } = await loadIntentMetadata();
-  const max = Math.max(...softmaxArr);
-  const maxIndex = softmaxArr.indexOf(max);
-  const intentLabel = labels[maxIndex];
 
-  if (max < THRESHOLD) {
-    return '¯\\_(ツ)_/¯';
-  } else {
-    let response;
-    switch (intentLabel) {
-      case 'GetWeather':
-        response = '⛅'
-        break;
-
-      case 'PlayMusic':
-        response = '🎵🎺🎵';
-        break;
-
-      default:
-        response = '?';
-        break;
-    }
-    return response;
-  }
-}
 
 const taggers = {};
 /**
@@ -194,10 +146,12 @@ async function sendMessage(inputText) {
     // Add the input text to the chat window
     const msgId = appendMessage(inputText, 'input');
     // Classify the text
-    const classification = await classify([inputText]);
+
+
     // Add the response to the chat window
-    const response = await getClassificationMessage(classification, inputText);
-    appendMessage(response, 'bot', msgId);
+
+
+    appendMessage('¯\\_(ツ)_/¯', 'bot', msgId);
   }
 }
 
