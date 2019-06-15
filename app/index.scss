@@ -1,0 +1,249 @@
+/**
+ * @license
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * =============================================================================
+ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.container {
+  -webkit-transform: translate3d(0,0,0);
+
+  .header {
+    text-align: center;
+    padding: 20px;
+    background-color: #bada55;
+    border-bottom: 1px solid #758e16;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-size: 24px;
+    line-height: 1.4em;
+    color: #4C5D0E;
+  }
+
+  .app {
+    font-size: 14pt;
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+    height: 100%;
+    font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.24);
+  }
+
+  .controls {
+    border-top: 0.5px solid #e3e3e3;
+    padding: 10px;
+    flex-grow: 1;
+    height: 0;
+
+    #speech,
+    #submit {
+      margin-left: 10px;
+      font-size: 20px;
+      border-radius: 4px;
+      padding: 9px;
+      background-color: white;
+    }
+    padding: 10px;
+
+    form {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    #textbox {
+      width: 100%;
+      height: 48px;
+      font-size: 18pt;
+    }
+  }
+
+  .taggings {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: left;
+    height: 250px;
+    overflow-y: scroll;
+  }
+
+  .taggings > :first-child {
+    margin-top: auto !important;
+  }
+
+  .tagging {
+    .model-type {
+      font-size: 9pt;
+      color: #777;
+      background-color: #efefef;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-right: 10px;
+      text-align: right;
+      float: right;
+      margin-top: -24px;
+    }
+    padding-left: 20px;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    overflow-x: auto;
+
+    .tokens {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .token {
+      width: 115px;
+      min-width: 115px;
+      padding: 4px 8px;
+      margin: 0 10px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .embeddings {
+      display: flex;
+      flex-direction: row;
+      margin-top: 10px;
+    }
+
+    .embedding {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin: 0 10px;
+      width: 115px;
+      min-width: 115px;
+      border-radius: 4px;
+      padding: 4px 8px;
+      overflow: hidden;
+      animation: fadein 0.75s ease-out;
+    }
+
+    .embVal {
+      height: 3px;
+      width: 3px;
+      border-radius: 6px;
+      margin: 1px;
+    }
+
+    marquee {
+      width: 115px;
+      min-width: 115px;
+      color: #ccc;
+      border-radius: 4px;
+      padding: 4px 8px;
+      margin: 0 10px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .tags {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: row;
+      animation: fadein 1.5s ease-out;
+    }
+
+    .tag {
+      width: 115px;
+      min-width: 115px;
+      border-radius: 4px;
+      padding: 4px 8px;
+      margin: 0 10px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .LOC {
+      background-color: lightcoral;
+    }
+
+    .__PAD__ {
+      background-color: grey;
+    }
+  }
+  @keyframes fadein {
+    0% {
+      opacity: 0;
+    }
+
+    50% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  #message-area {
+    box-shadow: 0 1px 5px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.24);
+  }
+
+  .messages {
+    flex: 7 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+
+  .messages > :first-child {
+    margin-top: auto !important;
+  }
+
+  .message {
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+
+    &.bot {
+      background-color: #bada55;
+      align-self: flex-start;
+      border-radius: 4px;
+      font-size: 20pt;
+      margin-left: 50px;
+    }
+
+    &.bot:before {
+      content: '🤖 ';
+      margin-left: -50px;
+      margin-right: 30px;
+      font-size: 18pt;
+    }
+
+    &.input {
+      background-color: #758e16;
+      align-self: flex-end;
+      color: white;
+      font-size: 20pt;
+      margin-right: 50px;
+    }
+
+    &.input:after {
+      content: ' 🐵';
+      position: relative;
+      right: -45px;
+      font-size: 18pt;
+    }
+  }
+}
