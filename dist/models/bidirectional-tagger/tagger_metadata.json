@@ -1,0 +1,9 @@
+{
+  "labels": [
+    "TOK",
+    "LOC",
+    "__PAD__"
+  ],
+  "sequenceLength": 30,
+  "embeddingSize": 512
+}

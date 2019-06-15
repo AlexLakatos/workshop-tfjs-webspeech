@@ -1,0 +1,14 @@
+{
+  "labels": [
+    "GetWeather",
+    "PlayMusic"
+  ],
+  "xsShape": [
+    600,
+    512
+  ],
+  "ysShape": [
+    600,
+    2
+  ]
+}
