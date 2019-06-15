@@ -14,7 +14,7 @@
     "train-tagger": "node training/train_tagger.js",
     "train": "npm-run-all train-intent train-tagger",
     "prep-client": "node copy_models.js",
-    "workshop-app": "yarn prep-client && parcel app/index.html --open"
+    "workshop-app": "parcel app/index.html --open"
   },
   "author": "",
   "license": "Apache-2.0",
