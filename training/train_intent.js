@@ -41,6 +41,7 @@ async function run(
   await model.fit(xs, ys, {epochs, validationSplit});
 
   mkdirp(outputFolder);
+  console.log(`Saving model to ${outputFolder}`);
   await model.save(fileIO.fileSystem(outputFolder));
 
   const metaOutPath = path.resolve(outputFolder, 'intent_metadata.json');
