@@ -40,12 +40,7 @@ async function loadUSE() {
 }
 
 let intent;
-async function loadIntentClassifer(url) {
-  if (intent == null) {
-    intent = await tf.loadLayersModel(url);
-  }
-  return intent;
-}
+
 
 let intentMetadata;
 async function loadIntentMetadata() {
@@ -60,23 +55,7 @@ const THRESHOLD = 0.90;
 
 
 const taggers = {};
-/**
- * Load a custom trained token tagger model.
- * @param {string} name Type of model to load. Should be a key in modelUrls
- */
-async function loadTagger(name) {
-  if (taggers[name] == null) {
-    const url = modelUrls[name];
-    try {
-      taggers[name] = await tf.loadLayersModel(url);
-    } catch (e) {
-      // Could not load that model. This is not necessarily an error
-      // as the user may not have trained all the available model types
-      console.log(`Could not load "${name}" model`);
-    }
-  }
-  return taggers[name];
-}
+
 
 /**
  * Load metadata for a model.
@@ -95,13 +74,6 @@ async function loadMetadata(name) {
   }
 }
 
-/**
- * Load a number of models to allow the browser to cache them.
- */
-async function loadTaggerModel() {
-  const modelLoadPromises = Object.keys(modelUrls).map(loadTagger);
-  return await Promise.all([loadUSE(), ...modelLoadPromises]);
-}
 
 /**
  * Split an input string into tokens, we use the same tokenization function
@@ -173,6 +145,5 @@ function setupListeners() {
 }
 
 window.addEventListener('load', function() {
-  loadTaggerModel();
   setupListeners();
 });
