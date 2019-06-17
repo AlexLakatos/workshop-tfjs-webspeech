@@ -78,7 +78,7 @@ yarn workshop-app
 ### Load the models
 
 ```
-git checkout -b load-tensor
+git checkout load-tensor
 ```
 
 ```javascript
@@ -131,7 +131,7 @@ window.addEventListener('load', function() {
 ### Add intent classification
 
 ```
-git checkout -b add-intents
+git checkout add-intents
 ```
 
 ```javascript
@@ -208,7 +208,7 @@ async function sendMessage(inputText) {
 ### Add message tagging
 
 ```
-git checkout -b add-tagging
+git checkout add-tagging
 ```
 
 ```javascript
@@ -317,7 +317,7 @@ async function tagMessage(inputText, model) {
 ### Add the weather api for tagged location
 
 ```
-git checkout -b add-weather-api
+git checkout add-weather-api
 ```
 
 ```javascript
@@ -362,7 +362,7 @@ async function getWeather(location) {
 ### Visualize tokenization
 
 ```
-git checkout -b display-tokenization
+git checkout display-tokenization
 ```
 
 ```javascript
@@ -480,7 +480,7 @@ async function tagMessage(inputText, model) {
 ### Add Speech Synthesis
 
 ```
-git checkout -b add-speech-synthesis
+git checkout add-speech-synthesis
 ```
 
 ```javascript
@@ -513,7 +513,7 @@ case 'GetWeather':
 ### Add Speech Recognition
 
 ```
-git checkout -b add-speech-recognition
+git checkout add-speech-recognition
 ```
 
 ```javascript
