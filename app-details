@@ -1,0 +1,20 @@
+nexmo app:create "Campus SDK Workshop" https://laka.ngrok.io/answer https://laka.ngrok.io/event --type=artc --keyfile=private.key
+
+Application created: 400c71ed-bc89-4b8d-8fad-af5c2a88d407
+Credentials written to /Users/laka/nexmo/workshop-tfjs-webspeech/app/.nexmo-app
+Private Key saved to: private.key
+
+nexmo cc display_name=chat
+Conversation created: CON-29bc5857-454e-4e28-a6d0-3cc97d41d98a
+
+nexmo uc name=laka
+User created: USR-78f341b2-6800-48ec-8b2a-48fd06636453
+
+nexmo uc name=bot
+User created: USR-248a9fea-82c4-4fae-9f49-c06324d62268
+
+nexmo member:add CON-29bc5857-454e-4e28-a6d0-3cc97d41d98a action=join channel='{"type":"app"}' user_id=USR-78f341b2-6800-48ec-8b2a-48fd06636453
+Member added: MEM-1110018e-e9ac-41fa-a09d-1c44d842b567
+
+nexmo member:add CON-29bc5857-454e-4e28-a6d0-3cc97d41d98a action=join channel='{"type":"app"}' user_id=USR-248a9fea-82c4-4fae-9f49-c06324d62268
+Member added: MEM-5cf30420-b880-4107-ab5e-0e9cf498573d
